@@ -16,6 +16,7 @@
 		DBAA782327112AA4004369BA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DBAA782127112AA4004369BA /* LaunchScreen.storyboard */; };
 		DBAA782E27112AA4004369BA /* WheatherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAA782D27112AA4004369BA /* WheatherTests.swift */; };
 		DBAA783927112AA4004369BA /* WheatherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DBAA783827112AA4004369BA /* WheatherUITests.swift */; };
+		DBAA789A271154DE004369BA /* Cuckoo-GeneratedMocks.sh in Resources */ = {isa = PBXBuildFile; fileRef = DBAA7899271154DE004369BA /* Cuckoo-GeneratedMocks.sh */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		DBAA783427112AA4004369BA /* WheatherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WheatherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBAA783827112AA4004369BA /* WheatherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WheatherUITests.swift; sourceTree = "<group>"; };
 		DBAA783A27112AA4004369BA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DBAA7899271154DE004369BA /* Cuckoo-GeneratedMocks.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "Cuckoo-GeneratedMocks.sh"; sourceTree = "<group>"; };
 		DCF08D57883A22E66F2A7B61 /* Pods-WheatherTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WheatherTests.debug.xcconfig"; path = "Target Support Files/Pods-WheatherTests/Pods-WheatherTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E8B5E4A9147C4AE4A8E738CF /* Pods-Wheather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wheather.release.xcconfig"; path = "Target Support Files/Pods-Wheather/Pods-Wheather.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -107,6 +109,7 @@
 		DBAA780A27112AA3004369BA = {
 			isa = PBXGroup;
 			children = (
+				DBAA78932711547F004369BA /* Scripts */,
 				DBAA781527112AA3004369BA /* Wheather */,
 				DBAA782C27112AA4004369BA /* WheatherTests */,
 				DBAA783727112AA4004369BA /* WheatherUITests */,
@@ -129,12 +132,9 @@
 		DBAA781527112AA3004369BA /* Wheather */ = {
 			isa = PBXGroup;
 			children = (
-				DBAA781627112AA3004369BA /* AppDelegate.swift */,
-				DBAA781A27112AA3004369BA /* ViewController.swift */,
-				DBAA781C27112AA3004369BA /* Main.storyboard */,
-				DBAA781F27112AA4004369BA /* Assets.xcassets */,
-				DBAA782127112AA4004369BA /* LaunchScreen.storyboard */,
-				DBAA782427112AA4004369BA /* Info.plist */,
+				DBAA78A527115A0C004369BA /* Business */,
+				DBAA78A4271159CD004369BA /* Services */,
+				DBAA78A627115A63004369BA /* SupportedFiles */,
 			);
 			path = Wheather;
 			sourceTree = "<group>";
@@ -155,6 +155,129 @@
 				DBAA783A27112AA4004369BA /* Info.plist */,
 			);
 			path = WheatherUITests;
+			sourceTree = "<group>";
+		};
+		DBAA786727113111004369BA /* WheatherHome */ = {
+			isa = PBXGroup;
+			children = (
+				DBAA786A271131F5004369BA /* ViewModel */,
+				DBAA7869271131EF004369BA /* View */,
+				DBAA7868271131EB004369BA /* Model */,
+			);
+			path = WheatherHome;
+			sourceTree = "<group>";
+		};
+		DBAA7868271131EB004369BA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		DBAA7869271131EF004369BA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				DBAA781A27112AA3004369BA /* ViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		DBAA786A271131F5004369BA /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		DBAA78932711547F004369BA /* Scripts */ = {
+			isa = PBXGroup;
+			children = (
+				DBAA7899271154DE004369BA /* Cuckoo-GeneratedMocks.sh */,
+			);
+			path = Scripts;
+			sourceTree = "<group>";
+		};
+		DBAA789E2711581A004369BA /* WheatherSettings */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = WheatherSettings;
+			sourceTree = "<group>";
+		};
+		DBAA789F2711582D004369BA /* WheatherDetail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = WheatherDetail;
+			sourceTree = "<group>";
+		};
+		DBAA78A02711586D004369BA /* CitySearch */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CitySearch;
+			sourceTree = "<group>";
+		};
+		DBAA78A127115897004369BA /* CityList */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CityList;
+			sourceTree = "<group>";
+		};
+		DBAA78A22711590B004369BA /* APIHandler */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = APIHandler;
+			sourceTree = "<group>";
+		};
+		DBAA78A327115929004369BA /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
+		DBAA78A4271159CD004369BA /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				DBAA78AD27115CD7004369BA /* LocalCachingHandler */,
+				DBAA78A22711590B004369BA /* APIHandler */,
+				DBAA78A327115929004369BA /* Networking */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		DBAA78A527115A0C004369BA /* Business */ = {
+			isa = PBXGroup;
+			children = (
+				DBAA78A127115897004369BA /* CityList */,
+				DBAA78A02711586D004369BA /* CitySearch */,
+				DBAA789F2711582D004369BA /* WheatherDetail */,
+				DBAA789E2711581A004369BA /* WheatherSettings */,
+				DBAA786727113111004369BA /* WheatherHome */,
+			);
+			path = Business;
+			sourceTree = "<group>";
+		};
+		DBAA78A627115A63004369BA /* SupportedFiles */ = {
+			isa = PBXGroup;
+			children = (
+				DBAA781627112AA3004369BA /* AppDelegate.swift */,
+				DBAA781C27112AA3004369BA /* Main.storyboard */,
+				DBAA781F27112AA4004369BA /* Assets.xcassets */,
+				DBAA782127112AA4004369BA /* LaunchScreen.storyboard */,
+				DBAA782427112AA4004369BA /* Info.plist */,
+			);
+			path = SupportedFiles;
+			sourceTree = "<group>";
+		};
+		DBAA78AD27115CD7004369BA /* LocalCachingHandler */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = LocalCachingHandler;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,6 +389,7 @@
 			files = (
 				DBAA782327112AA4004369BA /* LaunchScreen.storyboard in Resources */,
 				DBAA782027112AA4004369BA /* Assets.xcassets in Resources */,
+				DBAA789A271154DE004369BA /* Cuckoo-GeneratedMocks.sh in Resources */,
 				DBAA781E27112AA3004369BA /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -552,7 +676,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J8L3997MWN;
-				INFOPLIST_FILE = Wheather/Info.plist;
+				INFOPLIST_FILE = Wheather/SupportedFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -573,7 +697,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J8L3997MWN;
-				INFOPLIST_FILE = Wheather/Info.plist;
+				INFOPLIST_FILE = Wheather/SupportedFiles/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
