@@ -32,6 +32,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="City List View" id="xxr-fR-8pR"/>
+                    <connections>
+                        <outlet property="tableView" destination="GB2-1f-rNw" id="ioT-Uh-MKd"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
