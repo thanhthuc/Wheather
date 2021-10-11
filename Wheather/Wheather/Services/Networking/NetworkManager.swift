@@ -1,6 +1,6 @@
 //
 //  NetworkManager.swift
-//  Wheather
+//  Weather
 //
 //  Created by Nguyen Thanh Thuc on 09/10/2021.
 //
@@ -24,12 +24,13 @@ public extension NetworkProtocol {
    }
 }
 
-public enum WheatherService {
+public enum WeatherService {
    case requestCity
    case searchCity
+   case requestIcon(iconPath: String)
 }
 
-extension WheatherService: NetworkProtocol {
+extension WeatherService: NetworkProtocol {
    public var baseURL: String {
       switch self {
          case .requestCity:
@@ -43,6 +44,8 @@ extension WheatherService: NetworkProtocol {
       switch self {
          case .requestCity:
             return "\(baseURL)/data/2.5/forecast/daily?q=saigon&cnt=7&appid=60c6fbeb4b93ac653c492ba806fc346d&units=metric"
+         case .requestIcon(let iconPath):
+            return "http://openweathermap.org/img/w/\(iconPath).png"
          default:
             return "\(baseURL)/data/2.5/forecast/daily?q=saigon&cnt=7&appid=60c6fbeb4b93ac653c492ba806fc346d&units=metric"
       }

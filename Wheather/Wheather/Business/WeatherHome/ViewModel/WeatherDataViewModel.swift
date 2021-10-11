@@ -1,6 +1,6 @@
 //
-//  WheatherHomeViewModel.swift
-//  Wheather
+//  WeatherHomeViewModel.swift
+//  Weather
 //
 //  Created by Nguyen Thanh Thuc on 09/10/2021.
 //
@@ -8,33 +8,33 @@
 import RxSwift
 import RxRelay
 
-protocol WheatherDataViewModelProtocol {
+protocol WeatherDataViewModelProtocol {
    var disposedBag: DisposeBag { get }
-   var daysWheather: BehaviorRelay<[DayDataModel]> { get }
+   var daysWeather: BehaviorRelay<[DayDataModel]> { get }
    var errorMessage: BehaviorRelay<String> { get }
-   func loadWheatherCitys()
+   func loadWeatherCitys()
 }
 
-class WheatherDataViewModel: WheatherDataViewModelProtocol {
+class WeatherDataViewModel: WeatherDataViewModelProtocol {
    var errorMessage: BehaviorRelay<String>
-   var daysWheather: BehaviorRelay<[DayDataModel]>
+   var daysWeather: BehaviorRelay<[DayDataModel]>
    
    var disposedBag: DisposeBag = DisposeBag()
    
    init() {
       errorMessage = BehaviorRelay(value: "")
-      daysWheather = BehaviorRelay(value: [])
-      loadWheatherCitys()
+      daysWeather = BehaviorRelay(value: [])
+      loadWeatherCitys()
    }
    
-   func loadWheatherCitys() {
+   func loadWeatherCitys() {
       disposedBag = DisposeBag()
-      return APIWheatherHandler
+      return APIWeatherHandler
          .shared
          .request(service: .requestCity)
-         .asObservable().subscribe {[weak self] (model: WheatherModelData) in
+         .asObservable().subscribe {[weak self] (model: WeatherModelData) in
             print(model)
-            self?.daysWheather.accept(model.list)
+            self?.daysWeather.accept(model.list)
          } onError: {[weak self] (error) in
             self?.errorMessage.accept(error.localizedDescription)
          }.disposed(by: disposedBag)

@@ -1,13 +1,13 @@
 //
-//  WheatherModelData.swift
-//  Wheather
+//  WeatherModelData.swift
+//  Weather
 //
 //  Created by Nguyen Thanh Thuc on 10/10/2021.
 //
 
 import Foundation
 
-struct WheatherModelData: Codable {
+struct WeatherModelData: Codable {
    var city: CityModel
    var cod: String
    var message: Double

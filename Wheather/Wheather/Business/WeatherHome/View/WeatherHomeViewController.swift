@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  Wheather
+//  Weather
 //
 //  Created by Nguyen Thanh Thuc on 09/10/2021.
 //
@@ -10,14 +10,14 @@ import RealmSwift
 import RxSwift
 import RxCocoa
 
-class WheatherHomeViewController: UIViewController {
+class WeatherHomeViewController: UIViewController {
    
    // MARK: - UI property
    @IBOutlet weak var tableView: UITableView!
    let searchController = UISearchController(searchResultsController: nil)
    
    // MARK: - ViewModel property
-   var wheatherDataViewModel: WheatherDataViewModel!
+   var weatherDataViewModel: WeatherDataViewModel!
    
    let disposedBag = DisposeBag()
    
@@ -40,30 +40,29 @@ class WheatherHomeViewController: UIViewController {
    }
    
    private func setupTableView() {
-      let nib = UINib(nibName: String(describing: WheatherInfoTableViewCell.self), bundle: nil)
-      tableView.register(nib, forCellReuseIdentifier: String(describing: WheatherInfoTableViewCell.self))
+      let nib = UINib(nibName: String(describing: WeatherInfoTableViewCell.self), bundle: nil)
+      tableView.register(nib, forCellReuseIdentifier: String(describing: WeatherInfoTableViewCell.self))
    }
    
    private func initViewModel() {
-      wheatherDataViewModel = WheatherDataViewModel()
+      weatherDataViewModel = WeatherDataViewModel()
    }
    
    private func setupBinding() {
-      wheatherDataViewModel
-         .daysWheather
+      weatherDataViewModel
+         .daysWeather
          .bind(to: tableView
                   .rx
-                  .items(cellIdentifier: String(describing: WheatherInfoTableViewCell.self), cellType: WheatherInfoTableViewCell.self)) {
+                  .items(cellIdentifier: String(describing: WeatherInfoTableViewCell.self), cellType: WeatherInfoTableViewCell.self)) {
          tableView, model, cell in
-            print(model)
+            cell.setupDataWeather(data: model)
       }
          .disposed(by: disposedBag)
+      
    }
-   
-
 }
 
-extension WheatherHomeViewController: UISearchResultsUpdating {
+extension WeatherHomeViewController: UISearchResultsUpdating {
    
    func updateSearchResults(for searchController: UISearchController) {
       

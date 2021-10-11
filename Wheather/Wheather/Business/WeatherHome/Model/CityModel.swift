@@ -1,6 +1,6 @@
 //
 //  CityModel.swift
-//  Wheather
+//  Weather
 //
 //  Created by Nguyen Thanh Thuc on 10/10/2021.
 //

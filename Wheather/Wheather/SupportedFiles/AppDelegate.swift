@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  Wheather
+//  Weather
 //
 //  Created by Nguyen Thanh Thuc on 09/10/2021.
 //

@@ -1,13 +1,13 @@
 //
 //  TemperatureModel.swift
-//  Wheather
+//  Weather
 //
 //  Created by Nguyen Thanh Thuc on 10/10/2021.
 //
 
 import Foundation
 
-struct DayWheatherModel: Codable {
+struct DayWeatherModel: Codable {
    var id: UInt32
    var main: String
    var description: String
@@ -30,7 +30,7 @@ struct DayDataModel: Codable {
    
    var humidity: UInt32
    
-   var weather:[DayWheatherModel]
+   var weather:[DayWeatherModel]
    
    var speed: Double
    

@@ -1,5 +1,5 @@
-framework module Pods_WheatherTests {
-  umbrella header "Pods-WheatherTests-umbrella.h"
+framework module Pods_WeatherTests {
+  umbrella header "Pods-WeatherTests-umbrella.h"
 
   export *
   module * { export * }
