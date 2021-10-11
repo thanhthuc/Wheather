@@ -9,10 +9,9 @@ import Foundation
 import RxSwift
 
 public protocol NetworkProtocol {
-   var baseURL: String { get }
-   var path: String { get }
+   var baseURLString: String { get }
+   var request: URLRequest? { get }
    var method: String { get }
-   var task: URLSessionDataTask { get }
    var header: [String: String]? { get }
    var sampleData: Data { get }
 }
@@ -25,29 +24,49 @@ public extension NetworkProtocol {
 }
 
 public enum WeatherService {
-   case requestCity
-   case searchCity
+   case requestCity(param: [String: String])
    case requestIcon(iconPath: String)
 }
 
 extension WeatherService: NetworkProtocol {
-   public var baseURL: String {
+   struct AppAPIkey {
+      static let apiKey = "60c6fbeb4b93ac653c492ba806fc346d"
+   }
+   public var baseURLString: String {
       switch self {
          case .requestCity:
-            return "https://api.openweathermap.org/"
-         default:
-            return "https://api.openweathermap.org/"
+            return "https://api.openweathermap.org/data/2.5/forecast/daily"
+         case .requestIcon:
+            return "http://openweathermap.org"
       }
    }
    
-   public var path: String {
+   public var request: URLRequest? {
       switch self {
-         case .requestCity:
-            return "\(baseURL)/data/2.5/forecast/daily?q=saigon&cnt=7&appid=60c6fbeb4b93ac653c492ba806fc346d&units=metric"
+         case .requestCity(let param):
+            /*
+             return "\(baseURLString)/data/2.5/forecast/daily?q=saigon&cnt=7&appid=\(AppAPIkey.apiKey)&units=metric"
+             */
+            let queryItems = [
+               URLQueryItem(name: "q", value: param["q"]),
+               URLQueryItem(name: "cnt", value: param["cnt"]),
+               URLQueryItem(name: "appid", value: AppAPIkey.apiKey),
+               URLQueryItem(name: "units", value: param["units"])
+            ]
+            var urlComps = URLComponents(string: baseURLString)!
+            urlComps.queryItems = queryItems
+            
+            guard let url = urlComps.url else {
+               return nil
+            }
+            var urlRequest = URLRequest(url: url)
+            urlRequest.httpMethod = method
+            return urlRequest
+            
          case .requestIcon(let iconPath):
-            return "http://openweathermap.org/img/w/\(iconPath).png"
-         default:
-            return "\(baseURL)/data/2.5/forecast/daily?q=saigon&cnt=7&appid=60c6fbeb4b93ac653c492ba806fc346d&units=metric"
+            let stringPath = "\(baseURLString)/img/w/\(iconPath).png"
+            guard let url = URL(string: stringPath) else { return nil }
+            return URLRequest(url: url)
       }
    }
    
@@ -57,15 +76,6 @@ extension WeatherService: NetworkProtocol {
             return "GET"
          default:
             return "GET"
-      }
-   }
-   
-   public var task: URLSessionDataTask {
-      switch self {
-         case .requestCity:
-            return URLSessionDataTask()
-         default:
-            return URLSessionDataTask()
       }
    }
    

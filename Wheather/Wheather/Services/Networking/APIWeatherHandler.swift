@@ -23,9 +23,9 @@ class APIWeatherHandler: APINetworkHandlerProtocol {
       
       return Observable.create { observe in
          
-         guard let url = URL(string: service.path) else { return Disposables.create() }
+         guard let request = service.request else { return Disposables.create() }
          
-         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             
             guard error == nil else {
                observe.onError(error!)
@@ -52,9 +52,9 @@ class APIWeatherHandler: APINetworkHandlerProtocol {
    func requestSpecialResoure(service: WeatherService) -> Observable<Data> {
       return Observable.create { observe in
          
-         guard let url = URL(string: service.path) else { return Disposables.create() }
-         
-         let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+         guard let request = service.request else { return Disposables.create() }
+            
+         let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
             
             guard error == nil else {
                observe.onError(error!)

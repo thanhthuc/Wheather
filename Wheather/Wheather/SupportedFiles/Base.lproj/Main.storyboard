@@ -14,18 +14,25 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="WeatherHomeViewController" customModule="Weather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="GB2-1f-rNw">
-                                <rect key="frame" x="0.0" y="96" width="600" height="504"/>
+                                <rect key="frame" x="0.0" y="96" width="375" height="571"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="CjV-w2-NBp">
+                                <rect key="frame" x="0.0" y="96" width="375" height="571"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="CjV-w2-NBp" secondAttribute="bottom" id="Kwq-ZK-WeU"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="CjV-w2-NBp" secondAttribute="trailing" id="NWx-5s-zEh"/>
                             <constraint firstItem="GB2-1f-rNw" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="OYo-Hh-0Ke"/>
+                            <constraint firstItem="CjV-w2-NBp" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="UCG-oW-Y8Q"/>
+                            <constraint firstItem="CjV-w2-NBp" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ZCT-t6-e8d"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="GB2-1f-rNw" secondAttribute="trailing" id="kBf-Uc-bkp"/>
                             <constraint firstItem="GB2-1f-rNw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="sz9-qk-snt"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="GB2-1f-rNw" secondAttribute="bottom" id="ulT-PA-XbR"/>
@@ -33,6 +40,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="City List View" id="xxr-fR-8pR"/>
                     <connections>
+                        <outlet property="activityIndicatorView" destination="CjV-w2-NBp" id="644-AX-SrK"/>
                         <outlet property="tableView" destination="GB2-1f-rNw" id="ioT-Uh-MKd"/>
                     </connections>
                 </viewController>
@@ -46,7 +54,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="nzE-nx-itp" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="Zz4-aN-uZD">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="102"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

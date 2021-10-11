@@ -19,7 +19,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
    /*
     TODO:
-    - make key for model
     - Make API param and then make search API Network
     - make private for view model property
     - make private for view controller property

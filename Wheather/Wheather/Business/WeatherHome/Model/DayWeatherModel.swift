@@ -27,4 +27,5 @@ class DayWeatherModel: NSObject, Codable {
       descriptionWeather = try container.decode(String?.self, forKey: .descriptionWeather)
       iconPath = try container.decode(String?.self, forKey: .iconPath)
    }
+   
 }

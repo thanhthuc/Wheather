@@ -20,6 +20,11 @@ class WeatherInfoTableViewCell: UITableViewCell {
    var weatherInfoViewModel: WeatherInfoViewModelProtocol!
    let disposedBag = DisposeBag()
    
+   override func prepareForReuse() {
+      super.prepareForReuse()
+      weatherIconImageview.image = nil
+   }
+   
    override func awakeFromNib() {
       super.awakeFromNib()
       // Initialization code

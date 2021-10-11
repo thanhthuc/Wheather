@@ -12,20 +12,20 @@ import RxCocoa
 
 class WeatherHomeViewController: UIViewController {
    
+   @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
    // MARK: - UI property
    @IBOutlet weak var tableView: UITableView!
    let searchController = UISearchController(searchResultsController: nil)
    
    // MARK: - ViewModel property
    var weatherDataViewModel: WeatherDataViewModel!
-   
    let disposedBag = DisposeBag()
    
    // MARK: - View controller lifecycle
    override func viewDidLoad() {
       super.viewDidLoad()
       // Do any additional setup after loading the view.
-      setupTableView()
+      setupView()
       setupSearchController()
       initViewModel()
       setupBinding()
@@ -39,9 +39,10 @@ class WeatherHomeViewController: UIViewController {
       definesPresentationContext = true
    }
    
-   private func setupTableView() {
+   private func setupView() {
       let nib = UINib(nibName: String(describing: WeatherInfoTableViewCell.self), bundle: nil)
       tableView.register(nib, forCellReuseIdentifier: String(describing: WeatherInfoTableViewCell.self))
+      activityIndicatorView.hidesWhenStopped = true
    }
    
    private func initViewModel() {
@@ -50,7 +51,7 @@ class WeatherHomeViewController: UIViewController {
    
    private func setupBinding() {
       weatherDataViewModel
-         .daysWeather
+         .daysWeatherObservable
          .bind(to: tableView
                   .rx
                   .items(cellIdentifier: String(describing: WeatherInfoTableViewCell.self), cellType: WeatherInfoTableViewCell.self)) {
@@ -59,6 +60,12 @@ class WeatherHomeViewController: UIViewController {
       }
          .disposed(by: disposedBag)
       
+      weatherDataViewModel
+         .isLoadingDataObservable
+         .bind(to: activityIndicatorView
+                  .rx
+                  .isAnimating)
+         .disposed(by: disposedBag)
    }
 }
 
@@ -67,7 +74,6 @@ extension WeatherHomeViewController: UISearchResultsUpdating {
    func updateSearchResults(for searchController: UISearchController) {
       
    }
-   
    
 }
 

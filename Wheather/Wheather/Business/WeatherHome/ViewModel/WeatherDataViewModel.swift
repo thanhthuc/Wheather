@@ -10,34 +10,49 @@ import RxRelay
 
 protocol WeatherDataViewModelProtocol {
    var disposedBag: DisposeBag { get }
-   var daysWeather: BehaviorRelay<[DayDataModel]> { get }
-   var errorMessage: BehaviorRelay<String> { get }
+   var daysWeatherObservable: Observable<[DayDataModel]> { get }
+   var errorMessageObservable: Observable<String> { get }
+   var isLoadingDataObservable: Observable<Bool> { get }
    func loadWeatherCitys()
 }
 
 class WeatherDataViewModel: WeatherDataViewModelProtocol {
-   var errorMessage: BehaviorRelay<String>
-   var daysWeather: BehaviorRelay<[DayDataModel]>
+   var daysWeatherObservable: Observable<[DayDataModel]>
+   
+   var errorMessageObservable: Observable<String>
+   
+   var isLoadingDataObservable: Observable<Bool>
+   
+   private var errorMessageBehaviorRelay: BehaviorRelay<String> = BehaviorRelay(value: "")
+   private var daysWeatherBehaviorRelay: BehaviorRelay<[DayDataModel]> = BehaviorRelay(value: [])
+   private var isLoadingDataBehaviorRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
    
    var disposedBag: DisposeBag = DisposeBag()
    
    init() {
-      errorMessage = BehaviorRelay(value: "")
-      daysWeather = BehaviorRelay(value: [])
+      disposedBag = DisposeBag()
+      errorMessageObservable = errorMessageBehaviorRelay.asObservable()
+      daysWeatherObservable = daysWeatherBehaviorRelay.asObservable()
+      isLoadingDataObservable = isLoadingDataBehaviorRelay.asObservable()
       loadWeatherCitys()
    }
    
    func loadWeatherCitys() {
-      disposedBag = DisposeBag()
-      return APIWeatherHandler
+      isLoadingDataBehaviorRelay.accept(true)
+      APIWeatherHandler
          .shared
-         .request(service: .requestCity)
+         .request(service: .requestCity(param: ["q":"saigon", "cnt":"7", "units":"metric"]))
          .asObservable().subscribe {[weak self] (model: WeatherModelData) in
             print(model)
-            self?.daysWeather.accept(model.listWeatherForDays)
+            self?.daysWeatherBehaviorRelay.accept(model.listWeatherForDays)
+            self?.isLoadingDataBehaviorRelay.accept(false)
          } onError: {[weak self] (error) in
-            self?.errorMessage.accept(error.localizedDescription)
-         }.disposed(by: disposedBag)
+            self?.isLoadingDataBehaviorRelay.accept(false)
+            self?.errorMessageBehaviorRelay.accept(error.localizedDescription)
+         }
+         .disposed(by: disposedBag)
+      
+      
    }
    
 }
