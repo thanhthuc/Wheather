@@ -17,6 +17,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       return true
    }
 
-
+   /*
+    TODO:
+    - make key for model
+    - Make API param and then make search API Network
+    - make private for view model property
+    - make private for view controller property
+    - make unit temperature format
+    - make time format
+    - make unit test
+    
+    */
 }
 

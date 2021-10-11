@@ -6,20 +6,15 @@
 //
 
 import Foundation
+import RealmSwift
 
-
-struct Coordinate: Codable {
-   var lon: Double
-   var lat: Double
-}
-
-struct CityModel: Codable {
+class CityModel: NSObject, Codable {
    
-   var id: UInt32
-   var name: String
-   var coord: Coordinate
-   var country: String
-   var population: Int
-   var timezone: UInt32
+   @objc dynamic var id: UInt32
+   @objc dynamic var name: String?
+   @objc dynamic var coord: Coordinate
+   @objc dynamic var country: String?
+   @objc dynamic var population: Int
+   @objc dynamic var timezone: UInt32
    
 }

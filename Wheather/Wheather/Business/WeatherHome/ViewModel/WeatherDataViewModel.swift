@@ -34,7 +34,7 @@ class WeatherDataViewModel: WeatherDataViewModelProtocol {
          .request(service: .requestCity)
          .asObservable().subscribe {[weak self] (model: WeatherModelData) in
             print(model)
-            self?.daysWeather.accept(model.list)
+            self?.daysWeather.accept(model.listWeatherForDays)
          } onError: {[weak self] (error) in
             self?.errorMessage.accept(error.localizedDescription)
          }.disposed(by: disposedBag)

@@ -7,42 +7,46 @@
 
 import Foundation
 
-struct DayWeatherModel: Codable {
-   var id: UInt32
-   var main: String
-   var description: String
-   var icon: String
-}
-
-struct DayDataModel: Codable {
+class DayDataModel: NSObject, Codable {
    
-   var dt: UInt32
+   @objc dynamic var day: UInt32
+   @objc dynamic var sunrise: UInt32
+   @objc dynamic var sunset: UInt32
+   @objc dynamic var temperature: TemperatureModel
+   @objc dynamic var feelsLike: FeelLikeModel
+   @objc dynamic var pressure:  UInt32
+   @objc dynamic var humidity: UInt32
+   @objc dynamic var weather:[DayWeatherModel]
+   @objc dynamic var winSpeed: Double
+   @objc dynamic var clouds: Int
+   @objc dynamic var rain: Double
    
-   var sunrise: UInt32
+   enum DayDataModelKeys: String, CodingKey {
+      case day = "dt"
+      case sunrise = "sunrise"
+      case sunset = "sunset"
+      case temperature = "temp"
+      case feelsLike = "feels_like"
+      case pressure = "pressure"
+      case humidity = "humidity"
+      case weather = "weather"
+      case winSpeed = "speed"
+      case rain = "rain"
+      case clouds = "clouds"
+   }
    
-   var sunset: UInt32
-   
-   var temp: TemperatureModel
-   
-   var feels_like: FieldLikeModel
-   
-   var pressure:  UInt32
-   
-   var humidity: UInt32
-   
-   var weather:[DayWeatherModel]
-   
-   var speed: Double
-   
-   var deg: Double
-   
-   var gust: Double
-   
-   var clouds: Int
-   
-   var pop: Double
-   
-   var rain: Double
-   
-   
+   required init(from decoder: Decoder) throws {
+      let dayDataModelContainer = try decoder.container(keyedBy: DayDataModelKeys.self)
+      day = try dayDataModelContainer.decode(UInt32.self, forKey: .day)
+      sunrise = try dayDataModelContainer.decode(UInt32.self, forKey: .sunrise)
+      sunset = try dayDataModelContainer.decode(UInt32.self, forKey: .sunset)
+      temperature = try dayDataModelContainer.decode(TemperatureModel.self, forKey: .temperature)
+      feelsLike = try dayDataModelContainer.decode(FeelLikeModel.self, forKey: .feelsLike)
+      pressure = try dayDataModelContainer.decode(UInt32.self, forKey: .pressure)
+      humidity = try dayDataModelContainer.decode(UInt32.self, forKey: .humidity)
+      weather = try dayDataModelContainer.decode([DayWeatherModel].self, forKey: .weather)
+      winSpeed = try dayDataModelContainer.decode(Double.self, forKey: .winSpeed)
+      clouds = try dayDataModelContainer.decode(Int.self, forKey: .clouds)
+      rain = try dayDataModelContainer.decode(Double.self, forKey: .rain)
+   }
 }

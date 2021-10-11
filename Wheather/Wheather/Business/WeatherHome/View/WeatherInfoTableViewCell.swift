@@ -34,14 +34,14 @@ class WeatherInfoTableViewCell: UITableViewCell {
    
    func setupDataWeather(data: DayDataModel) {
       
-      let date = Date(timeIntervalSince1970: TimeInterval(data.dt))
+      let date = Date(timeIntervalSince1970: TimeInterval(data.day))
       dateLabel.text = "Date: \(date.time)"
-      averageTemperLabel.text = "Everage temperature: \(data.temp.eve)"
+      averageTemperLabel.text = "Everage temperature: \(data.temperature.everage)"
       pressureLabel.text = "Pressure: \(data.pressure)"
       humidityLabel.text = "Humidity: \(data.humidity)"
-      descriptionLabel.text = "Description: \(data.weather.first?.description ?? "No description")"
+      descriptionLabel.text = "Description: \(data.weather.first?.descriptionWeather ?? "Unknow description")"
       
-      guard let path = data.weather.first?.icon else {
+      guard let path = data.weather.first?.iconPath else {
          return
       }
       weatherInfoViewModel.loadImage(resourcePath: path)
