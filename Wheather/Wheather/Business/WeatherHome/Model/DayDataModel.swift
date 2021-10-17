@@ -36,6 +36,7 @@ class DayDataModel: NSObject, Codable {
    }
    
    required init(from decoder: Decoder) throws {
+      
       let dayDataModelContainer = try decoder.container(keyedBy: DayDataModelKeys.self)
       day = try dayDataModelContainer.decode(UInt32.self, forKey: .day)
       sunrise = try dayDataModelContainer.decode(UInt32.self, forKey: .sunrise)
@@ -47,6 +48,11 @@ class DayDataModel: NSObject, Codable {
       weather = try dayDataModelContainer.decode([DayWeatherModel].self, forKey: .weather)
       winSpeed = try dayDataModelContainer.decode(Double.self, forKey: .winSpeed)
       clouds = try dayDataModelContainer.decode(Int.self, forKey: .clouds)
-      rain = try dayDataModelContainer.decode(Double.self, forKey: .rain)
+      
+      if dayDataModelContainer.contains(.rain) {
+         rain = try dayDataModelContainer.decode(Double.self, forKey: .rain)
+      } else {
+         rain = 0.0
+      }
    }
 }
