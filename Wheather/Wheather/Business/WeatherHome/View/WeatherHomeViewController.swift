@@ -46,7 +46,7 @@ class WeatherHomeViewController: UIViewController {
    }
    
    private func initViewModel() {
-      weatherDataViewModel = WeatherDataViewModel()
+      weatherDataViewModel = WeatherDataViewModel(searchObservable: searchController.searchBar.rx.text.orEmpty.asObservable())
    }
    
    private func setupBinding() {

@@ -37,8 +37,8 @@ class APIWeatherHandler: APINetworkHandlerProtocol {
             }
             let decoder = JSONDecoder()
             do {
-               let WeatherModelData = try decoder.decode(T.self, from: data)
-               observe.onNext(WeatherModelData)
+               let weatherModelData = try decoder.decode(T.self, from: data)
+               observe.onNext(weatherModelData)
             } catch let error {
                print("error for parse data: \(error.localizedDescription)")
                observe.onError(error)

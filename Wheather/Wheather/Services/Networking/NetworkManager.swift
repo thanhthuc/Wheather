@@ -37,7 +37,7 @@ extension WeatherService: NetworkProtocol {
          case .requestCity:
             return "https://api.openweathermap.org/data/2.5/forecast/daily"
          case .requestIcon:
-            return "http://openweathermap.org"
+            return "http://openweathermap.org/img/w/"
       }
    }
    
@@ -47,15 +47,11 @@ extension WeatherService: NetworkProtocol {
             /*
              return "\(baseURLString)/data/2.5/forecast/daily?q=saigon&cnt=7&appid=\(AppAPIkey.apiKey)&units=metric"
              */
-            let queryItems = [
-               URLQueryItem(name: "q", value: param["q"]),
-               URLQueryItem(name: "cnt", value: param["cnt"]),
-               URLQueryItem(name: "appid", value: AppAPIkey.apiKey),
-               URLQueryItem(name: "units", value: param["units"])
-            ]
             var urlComps = URLComponents(string: baseURLString)!
-            urlComps.queryItems = queryItems
-            
+            urlComps.queryItems = param.map({ (key, value) in
+               URLQueryItem(name: key, value: value)
+            })
+            urlComps.queryItems?.append(URLQueryItem(name: "appid", value: AppAPIkey.apiKey))
             guard let url = urlComps.url else {
                return nil
             }
@@ -64,9 +60,11 @@ extension WeatherService: NetworkProtocol {
             return urlRequest
             
          case .requestIcon(let iconPath):
-            let stringPath = "\(baseURLString)/img/w/\(iconPath).png"
+            let stringPath = "\(baseURLString)\(iconPath).png"
             guard let url = URL(string: stringPath) else { return nil }
-            return URLRequest(url: url)
+            var request = URLRequest(url: url)
+            request.httpMethod = method
+            return request
       }
    }
    

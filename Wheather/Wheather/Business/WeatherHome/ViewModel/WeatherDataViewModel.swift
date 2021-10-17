@@ -26,11 +26,12 @@ class WeatherDataViewModel: WeatherDataViewModelProtocol {
    private var errorMessageBehaviorRelay: BehaviorRelay<String> = BehaviorRelay(value: "")
    private var daysWeatherBehaviorRelay: BehaviorRelay<[DayDataModel]> = BehaviorRelay(value: [])
    private var isLoadingDataBehaviorRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
+   private var searchObservable: Observable<String>
    
    var disposedBag: DisposeBag = DisposeBag()
    
-   init() {
-      disposedBag = DisposeBag()
+   init(searchObservable: Observable<String>) {
+      self.searchObservable = searchObservable
       errorMessageObservable = errorMessageBehaviorRelay.asObservable()
       daysWeatherObservable = daysWeatherBehaviorRelay.asObservable()
       isLoadingDataObservable = isLoadingDataBehaviorRelay.asObservable()
@@ -42,7 +43,7 @@ class WeatherDataViewModel: WeatherDataViewModelProtocol {
       APIWeatherHandler
          .shared
          .request(service: .requestCity(param: ["q":"saigon", "cnt":"7", "units":"metric"]))
-         .asObservable().subscribe {[weak self] (model: WeatherModelData) in
+         .subscribe {[weak self] (model: WeatherModelData) in
             print(model)
             self?.daysWeatherBehaviorRelay.accept(model.listWeatherForDays)
             self?.isLoadingDataBehaviorRelay.accept(false)
@@ -51,6 +52,7 @@ class WeatherDataViewModel: WeatherDataViewModelProtocol {
             self?.errorMessageBehaviorRelay.accept(error.localizedDescription)
          }
          .disposed(by: disposedBag)
+      
       
       
    }
