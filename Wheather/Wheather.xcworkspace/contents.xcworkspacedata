@@ -2,7 +2,37 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:MyPlayground.playground">
+      location = "group:CreateOperator.playground">
+   </FileRef>
+   <FileRef
+      location = "group:Subject.playground">
+   </FileRef>
+   <FileRef
+      location = "group:MemoryRxSwift.playground">
+   </FileRef>
+   <FileRef
+      location = "group:NetworkingAndMultiThreading.playground">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/nguyenthanhthuc/Wheather/Wheather/Traits.playground">
+   </FileRef>
+   <FileRef
+      location = "group:FilterOperator.playground">
+   </FileRef>
+   <FileRef
+      location = "group:CombineOperator.playground">
+   </FileRef>
+   <FileRef
+      location = "group:ShareOperator.playground">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/nguyenthanhthuc/Wheather/Wheather/TransformOperator.playground">
+   </FileRef>
+   <FileRef
+      location = "group:DemoRxSwift.playground">
+   </FileRef>
+   <FileRef
+      location = "group:CustomRxOperatorOrObservable.playground">
    </FileRef>
    <FileRef
       location = "group:/Users/nguyenthanhthuc/Wheather/Wheather/Weather.xcodeproj">
