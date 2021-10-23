@@ -41,7 +41,7 @@ class APIWeatherHandler: APINetworkHandlerProtocol {
                observe.onNext(weatherModelData)
             } catch let error {
                print("error for parse data: \(error.localizedDescription)")
-               observe.onError(error)
+//               observe.onError(error)
             }
          }
          task.resume()

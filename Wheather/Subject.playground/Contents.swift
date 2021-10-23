@@ -16,9 +16,16 @@ let publishSubject = PublishSubject<String>()
 publishSubject.onNext("Before subscribe") // Do not receive onNext event before subscribe
 //publishSubject.onCompleted() // It do complete or error before subscribe
 
-publishSubject.subscribe { event in
-   print(event.event)
-}.disposed(by: disposeBag)
+publishSubject.subscribe(onNext: { value in
+   print("publishSubject value: \(publishSubject)")
+}, onError: { error in
+   print("publishSubject error: \(error)")
+}, onCompleted: {
+   print("publishSubject Completed")
+}, onDisposed: {
+   print("publishSubject Disposed")
+})
+.disposed(by: disposeBag)
 
 publishSubject.onCompleted()
 publishSubject.onNext("After subscribe")
@@ -32,9 +39,16 @@ behaviorSubject.onNext("fromA")
 behaviorSubject.onNext("fromB")
 
 behaviorSubject
-   .subscribe { string in
-   print(string)
-   }.disposed(by: disposeBag)
+   .subscribe(onNext: { value in
+      print("behaviorSubject value: \(behaviorSubject)")
+   }, onError: { error in
+      print("behaviorSubject error: \(error)")
+   }, onCompleted: {
+      print("behaviorSubject completed")
+   }, onDisposed: {
+      print("behaviorSubject disposed")
+   })
+   .disposed(by: disposeBag)
 
 behaviorSubject.onNext("from")
 behaviorSubject.onNext("from1")
@@ -55,9 +69,17 @@ relaySubject.onNext("Replay6")
 relaySubject.onNext("Replay7")
 relaySubject.onNext("Replay8")
 
-relaySubject.subscribe { event in
-   print(event)
+relaySubject.subscribe { value in
+   print("relaySubject value: \(value)")
+} onError: { error in
+   print("relaySubject error: \(error)")
+} onCompleted: {
+   print("relaySubject Complete")
+} onDisposed: {
+   print("relaySubject Disposed")
 }
+.disposed(by: disposeBag)
+
 
 relaySubject.onNext("Relay ABCD")
 relaySubject.onNext("Relay ABCD")
@@ -76,9 +98,17 @@ let behaviorReplay = BehaviorRelay(value: "ABCD")
 behaviorReplay.accept("New ABCD")
 behaviorReplay.accept("New ABCD")
 behaviorReplay.accept("New ABCD")
-behaviorReplay.subscribe { event in
-   print(event.event)
+behaviorReplay.subscribe { value in
+   print("behaviorReplay value: \(value)")
+} onError: { error in
+   print("behaviorReplay error: \(error)")
+} onCompleted: {
+   print("behaviorReplay completed")
+} onDisposed: {
+   print("behaviorReplay disposed")
 }
+.disposed(by: disposeBag)
+
 
 behaviorReplay.accept("New ABCD")
 

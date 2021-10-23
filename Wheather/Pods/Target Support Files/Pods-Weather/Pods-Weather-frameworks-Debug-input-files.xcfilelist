@@ -1,4 +1,4 @@
-${PODS_ROOT}/Target Support Files/Pods-Wheather/Pods-Wheather-frameworks.sh
+${PODS_ROOT}/Target Support Files/Pods-Weather/Pods-Weather-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework
 ${BUILT_PRODUCTS_DIR}/Realm/Realm.framework
 ${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework

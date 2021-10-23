@@ -9,8 +9,14 @@ import UIKit
 import RealmSwift
 import RxSwift
 import RxCocoa
+import RxCocoa
 
 class WeatherHomeViewController: UIViewController {
+   
+   deinit {
+      print("Deinit view controller")
+      print("Resource count \(RxSwift.Resources.total)")
+   }
    
    @IBOutlet weak var activityIndicatorView: UIActivityIndicatorView!
    // MARK: - UI property
@@ -29,6 +35,8 @@ class WeatherHomeViewController: UIViewController {
       setupSearchController()
       initViewModel()
       setupBinding()
+      
+      testDisposed()
    }
    
    private func setupSearchController() {
@@ -46,6 +54,8 @@ class WeatherHomeViewController: UIViewController {
    }
    
    private func initViewModel() {
+      // Default search
+      searchController.searchBar.text = "saigon"
       weatherDataViewModel = WeatherDataViewModel(searchObservable: searchController.searchBar.rx.text.orEmpty.asObservable())
    }
    
@@ -61,11 +71,51 @@ class WeatherHomeViewController: UIViewController {
          .disposed(by: disposedBag)
       
       weatherDataViewModel
+         .daysWeatherObservable
+         .subscribe { models in
+         print(models)
+      } onError: { error in
+         print(error.localizedDescription)
+      } onCompleted: {
+         print("Complete observable datas model")
+      } onDisposed: {
+         print("Disposed observable datas model")
+      }
+      .disposed(by: disposedBag)
+
+      
+      weatherDataViewModel
          .isLoadingDataObservable
-         .bind(to: activityIndicatorView
-                  .rx
-                  .isAnimating)
+         .observe(on: MainScheduler.instance)
+         .subscribe(onNext: {[weak self] needAnimating in
+            if needAnimating {
+               self?.activityIndicatorView.startAnimating()
+            } else {
+               self?.activityIndicatorView.stopAnimating()
+            }
+         }, onError: { error in
+            print(error.localizedDescription)
+         }, onCompleted: {
+            print("Complete observable loading")
+         }, onDisposed: {
+            print("Disposed observable loading")
+         })
          .disposed(by: disposedBag)
+   }
+   
+   func testDisposed() {
+      Observable<Int>
+         .interval(RxTimeInterval.milliseconds(500), scheduler: MainScheduler.instance)
+         .subscribe { value in
+         print(value)
+      } onError: { error in
+         print(error.localizedDescription)
+      } onCompleted: {
+         print("Completed")
+      } onDisposed: {
+         print("Disposed interval observable")
+      }
+      .disposed(by: disposedBag)
    }
 }
 

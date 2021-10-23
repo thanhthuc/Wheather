@@ -25,7 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     - make unit temperature format
     - make time format
     - make unit test
-    
     */
 }
 
