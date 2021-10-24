@@ -7,7 +7,12 @@ import RxRelay
 // withUnretained
 */
 
+
+
 class AViewController: UIViewController {
+   
+   var string = ""
+   
    deinit {
       print("Deinit viewController A")
    }
@@ -19,30 +24,38 @@ class AViewController: UIViewController {
    }
 
    func binding() {
-
-      let publishSubject = PublishSubject<Any>()
+      
+      /*
+       VCA ->strong closure
+       closure ->(weak) VCA.string
+       */
+      let publishSubject = PublishSubject<String>()
       publishSubject
-         .subscribe { value in
+         .subscribe {[weak self] value in
             print(value)
-         
+            self?.string = value
       } onError: { error in
          print(error.localizedDescription)
       } onCompleted: {
          print("Complete")
       } onDisposed: {
-         print("Disposed")
+         print("Disposed A")
       }
-      .disposed(by: bag)
       
-      publishSubject.withUnretained(self).subscribe { (owner, value) in
-         owner.doSomething(withString: value as! String)
-      } onError: { error in
-         print(error.localizedDescription)
-      } onCompleted: {
-         print("Completed")
-      } onDisposed: {
-         print("Disposed")
-      }
+//      publishSubject
+//         .subscribe { [weak self] (value) in
+//         self?.doSomething(withString: value as! String)
+//      } onError: {[weak self] error in
+//         self?.doSomethingWithError(error: error)
+//         print(error.localizedDescription)
+//      } onCompleted: {
+//         [weak self] in
+//         self?.doSomethingWithComplete()
+//         print("Completed")
+//      } onDisposed: {
+//         print("Disposed B")
+//      }
+//         .disposed(by: bag)
       
 //      publishSubject.subscribe(with: self) { owner, value in
 //         owner.doSomething(withString: value as! String)
@@ -78,6 +91,7 @@ class AViewController: UIViewController {
 var vc: AViewController? = AViewController()
 vc?.binding()
 vc = nil
+print(vc?.string)
 
 
 // MARK: - Best practice memory management

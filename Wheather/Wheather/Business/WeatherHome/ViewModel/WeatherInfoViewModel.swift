@@ -42,8 +42,8 @@ class WeatherInfoViewModel: WeatherInfoViewModelProtocol {
                return
             }
             self?.imageDataBehaviorRelay.accept(imageUnwrap)
-         } onError: { (error) in
-            self.errorBehaviorRelay.accept(error)
+         } onError: {[weak self] (error) in
+            self?.errorBehaviorRelay.accept(error)
          }
          .disposed(by: disposedBag)
    }

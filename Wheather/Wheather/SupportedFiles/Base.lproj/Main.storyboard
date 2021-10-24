@@ -38,7 +38,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="GB2-1f-rNw" secondAttribute="bottom" id="ulT-PA-XbR"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Weather Of Days" id="xxr-fR-8pR"/>
+                    <navigationItem key="navigationItem" title="Weather Of Days" largeTitleDisplayMode="always" id="xxr-fR-8pR"/>
                     <connections>
                         <outlet property="activityIndicatorView" destination="CjV-w2-NBp" id="644-AX-SrK"/>
                         <outlet property="tableView" destination="GB2-1f-rNw" id="ioT-Uh-MKd"/>
@@ -48,10 +48,10 @@
             </objects>
             <point key="canvasLocation" x="1102" y="-85"/>
         </scene>
-        <!--View Controller-->
+        <!--Weather Login View Controller-->
         <scene sceneID="h5N-Ju-00p">
             <objects>
-                <viewController id="vK2-rg-yW9" sceneMemberID="viewController">
+                <viewController id="vK2-rg-yW9" customClass="WeatherLoginViewController" customModule="Weather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ab4-2h-XFr">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -107,7 +107,17 @@
                             <constraint firstItem="IAP-50-2k0" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="5hw-IN-AQa" secondAttribute="bottom" constant="10" id="yma-HU-5Dh"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="By1-jg-yjF"/>
+                    <navigationItem key="navigationItem" id="By1-jg-yjF">
+                        <nil key="title"/>
+                        <button key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="N54-Jw-Av8">
+                            <rect key="frame" x="115.5" y="7" width="144" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <state key="normal" title="Debounce vs Throtte"/>
+                        </button>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="buttonTestDeboundThrotto" destination="N54-Jw-Av8" id="NhH-xb-Pws"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W9I-CV-UpW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
