@@ -134,82 +134,105 @@ let disposeBag = DisposeBag()
 //      print(Thread.current)
 //   }
 
-struct PhuocModel: Codable {
-   var name: String
-   var email: String
-}
+//struct PhuocModel: Codable {
+//   var name: String
+//   var email: String
+//}
+//
+//func loadRequest(completion: @escaping (PhuocModel?, Error?) -> ()) {
+//   let url = URL(string: "")
+//   let task = URLSession.shared.dataTask(with: url!) { data, response, error in
+//
+//      guard error == nil else {
+//         completion(nil,error)
+//         return
+//      }
+//      guard data != nil else {
+//         completion(nil, NSError(domain: "", code: 0, userInfo: nil))
+//         return
+//      }
+//      // Parse data
+//      let decoder = JSONDecoder()
+//      do {
+//         let dataModel = try decoder.decode(PhuocModel.self, from: data!)
+//         completion(dataModel, nil)
+//      } catch let error {
+//         completion(nil, error)
+//      }
+//   }
+//   task.resume()
+//}
+//
+//func loadReuquestObservable() -> Observable<PhuocModel> {
+//   return Observable.create { observer in
+//      let url = URL(string: "")!
+//      let task = URLSession.shared.dataTask(with: url) { data, response, error in
+//         guard error == nil else {
+//            observer.onError(NSError(domain: "", code: 0, userInfo: nil))
+//            return
+//         }
+//         guard data != nil else {
+//            observer.onError(NSError(domain: "", code: 0, userInfo: nil))
+//            return
+//         }
+//         let decoder = JSONDecoder()
+//         do {
+//            let dataModel = try decoder.decode(PhuocModel.self, from: data!)
+//            observer.onNext(dataModel)
+//            observer.onCompleted()
+//         } catch let error {
+//            observer.onError(error)
+//         }
+//      }
+//      task.resume()
+//      return Disposables.create {
+//         print("Disposed API request")
+//      }
+//   }
+//}
+//
+//func loadRequestObservble() -> Observable<PhuocModel> {
+//
+//   let url = URL(string: "")
+//   let request = URLRequest(url: url!)
+//   return URLSession
+//      .shared
+//      .rx
+//      .response(request: request)
+//      .flatMapLatest {
+//         (response: HTTPURLResponse, data: Data) -> Observable<(HTTPURLResponse, Data)> in
+//         return Observable.just((response, data))
+//      }.map { (response, data) -> PhuocModel in
+//
+//         if 200..<300 ~= response.statusCode {
+//            let decoder = JSONDecoder()
+//            let model = try decoder.decode(PhuocModel.self, from: data)
+//            return model
+//         } else {
+//            throw NSError(domain: "", code: 0, userInfo: nil)
+//         }
+//      }
+//}
 
-func loadRequest(completion: @escaping (PhuocModel?, Error?) -> ()) {
-   let url = URL(string: "")
-   let task = URLSession.shared.dataTask(with: url!) { data, response, error in
-      
-      guard error == nil else {
-         completion(nil,error)
-         return
+
+let searchStringSequence = Observable.of("A", "B", "C", "D", "E")
+searchStringSequence.flatMapLatest { string in
+   return Observable<String>.create { observer in
+      // perform long task, example: perform API request, call database
+      DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + 4) {
+         observer.onNext("string result \(string)")
+         observer.onCompleted()
       }
-      guard data != nil else {
-         completion(nil, NSError(domain: "", code: 0, userInfo: nil))
-         return
-      }
-      // Parse data
-      let decoder = JSONDecoder()
-      do {
-         let dataModel = try decoder.decode(PhuocModel.self, from: data!)
-         completion(dataModel, nil)
-      } catch let error {
-         completion(nil, error)
-      }
+      return Disposables.create {}
    }
-   task.resume()
+}
+.subscribe { value in
+   print(value)
+} onError: { error in
+   print(error)
+} onCompleted: {
+   print("Completed")
+} onDisposed: {
+   print("Disposed")
 }
 
-func loadReuquestObservable() -> Observable<PhuocModel> {
-   return Observable.create { observer in
-      let url = URL(string: "")!
-      let task = URLSession.shared.dataTask(with: url) { data, response, error in
-         guard error == nil else {
-            observer.onError(NSError(domain: "", code: 0, userInfo: nil))
-            return
-         }
-         guard data != nil else {
-            observer.onError(NSError(domain: "", code: 0, userInfo: nil))
-            return
-         }
-         let decoder = JSONDecoder()
-         do {
-            let dataModel = try decoder.decode(PhuocModel.self, from: data!)
-            observer.onNext(dataModel)
-            observer.onCompleted()
-         } catch let error {
-            observer.onError(error)
-         }
-      }
-      task.resume()
-      return Disposables.create {
-         print("Disposed API request")
-      }
-   }
-}
-
-func loadRequestObservble() -> Observable<PhuocModel> {
-   
-   let url = URL(string: "")
-   let request = URLRequest(url: url!)
-   return URLSession
-      .shared
-      .rx
-      .response(request: request)
-      .flatMapLatest {
-         (response: HTTPURLResponse, data: Data) -> Observable<(HTTPURLResponse, Data)> in
-         return Observable.just((response, data))
-      }.map { (response, data) -> PhuocModel in
-         
-         if 200..<300 ~= response.statusCode {
-            let decoder = JSONDecoder()
-            let model = try decoder.decode(PhuocModel.self, from: data)
-            return model
-         } else {
-            throw NSError(domain: "", code: 0, userInfo: nil)
-         }
-      }
-}

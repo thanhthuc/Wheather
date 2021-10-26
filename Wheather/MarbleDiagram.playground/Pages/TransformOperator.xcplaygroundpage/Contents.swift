@@ -1,19 +1,21 @@
-import UIKit
-import RxRelay
+//: [Previous](@previous)
+
+import Foundation
 import RxSwift
+import RxRelay
+import RxCocoa
 
 let disposeBag = DisposeBag()
 
-// MARK: - Part III: Transform operator
+//: [Next](@next)
 
+// MARK: - Part III: Transform operator
 // 1. map
 // 2. flatMap
 // 3. flatMapLatest
 // 4. Scan
 // 5. Buffer
 // 6. GroupBy
-
-let observable = Observable<String>.from(["Tu" ?? "", "Thuc" ?? ""])
 
 //observable.flatMap { value -> Observable<String> in
 //   return Observable.create { observer in
@@ -86,6 +88,7 @@ let observable = Observable<String>.from(["Tu" ?? "", "Thuc" ?? ""])
 //let result = array.flatMap { array in
 //   return array
 //}
+
 ////print(result)
 //
 //
@@ -111,43 +114,31 @@ let observable = Observable<String>.from(["Tu" ?? "", "Thuc" ?? ""])
 //
 //}
 //
-//
-//
-//
-//
-//
-//observables
-//   .flatMapLatest { behaviorRelay -> Observable<Int> in
-//   return behaviorRelay.asObservable()
-//}.subscribe { score in
-//   print(score)
-//} onError: { error in
-//   print(error)
-//} onCompleted: {
-//   print("Complete")
-//} onDisposed: {
-//   print("Disposed")
-//}
-//.disposed(by: disposeBag)
-//
-//teoScore.accept(10)
-//giauScore.accept(100)
-//richScrore.accept(200)
-//
 
-let behaviorRelay = BehaviorRelay(value: 0)
 
-behaviorRelay.accept(100)
-behaviorRelay.accept(200)
-behaviorRelay.accept(300)
-
-behaviorRelay.flatMap { value in
-   return Observable.just(value)
+let observables = Observable.of("A", "B", "C")
+observables
+   .flatMapLatest { string -> Observable<String> in
+      
+      return Observable<String>.create { observer in
+         
+         DispatchQueue.global().asyncAfter(deadline: .now() + 1) {
+            observer.onNext(string)
+         }
+         return Disposables.create {
+            print("Disposed")
+         }
+      }
+}.subscribe { score in
+   print(score)
+} onError: { error in
+   print(error)
+} onCompleted: {
+   print("Complete")
+} onDisposed: {
+   print("Disposed")
 }
-.subscribe { value in
-   print(value.element!)
-}
+.disposed(by: disposeBag)
 
-behaviorRelay.accept(400)
-behaviorRelay.accept(500)
-behaviorRelay.accept(600)
+
+

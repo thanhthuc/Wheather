@@ -26,31 +26,16 @@ class WeatherLoginViewController: UIViewController {
       buttonTestDeboundThrotto
          .rx
          .tap
-         .throttle(RxTimeInterval.milliseconds(400), scheduler: MainScheduler.instance)
-         //.debounce(RxTimeInterval.milliseconds(400), scheduler: MainScheduler.instance)
+//         .throttle(RxTimeInterval.milliseconds(400), scheduler: MainScheduler.instance)
+         .debounce(RxTimeInterval.milliseconds(400), scheduler: MainScheduler.instance)
          .flatMapLatest({ value in
             // Reduce request
-            return Observable<Any>.create { observe in
-               
-               // Task bat dong bo
-               let task = URLSession.shared.dataTask(with: URL(string: "")!) { data, response, error in
-                  
-                  // Last data
-               }
-               task.resume()
-               
-               return Disposables.create()
-            }
+            return Observable.just(value)
          })
-         
          .subscribe {
             _ in
             print("Tap!!!")
          }
          .disposed(by: disposeBag)
-      
-      
    }
-   
-   
 }

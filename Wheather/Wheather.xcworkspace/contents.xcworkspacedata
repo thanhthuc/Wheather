@@ -14,19 +14,13 @@
       location = "group:NetworkingAndMultiThreading.playground">
    </FileRef>
    <FileRef
+      location = "group:/Users/nguyenthanhthuc/Wheather/Wheather/MarbleDiagram.playground">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/nguyenthanhthuc/Wheather/Wheather/MultiCast.playground">
+   </FileRef>
+   <FileRef
       location = "group:/Users/nguyenthanhthuc/Wheather/Wheather/Traits.playground">
-   </FileRef>
-   <FileRef
-      location = "group:FilterOperator.playground">
-   </FileRef>
-   <FileRef
-      location = "group:CombineOperator.playground">
-   </FileRef>
-   <FileRef
-      location = "group:ShareOperator.playground">
-   </FileRef>
-   <FileRef
-      location = "group:/Users/nguyenthanhthuc/Wheather/Wheather/TransformOperator.playground">
    </FileRef>
    <FileRef
       location = "group:DemoRxSwift.playground">

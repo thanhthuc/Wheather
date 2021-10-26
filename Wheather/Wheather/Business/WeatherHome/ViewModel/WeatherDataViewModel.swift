@@ -32,6 +32,16 @@ class WeatherDataViewModel: WeatherDataViewModelProtocol {
    // Network connection replay
    // handle error display
    // handle dispose at view controller screen
+   // Cached for city
+   // Hot and cold observalbe
+   // Rx marble diagram understanding
+   // unit test with cuckoo,
+   // testing with rx
+   // Solid understanding
+   
+   
+   // compare with Combine Apple
+   
    init() {
       errorMessageObservable = errorMessageBehaviorRelay.asObservable()
       isLoadingDataObservable = isLoadingDataBehaviorRelay.asObservable()

@@ -1,8 +1,10 @@
 import UIKit
+import RxRelay
+import RxSwift
 
-var greeting = "Hello, playground"
+let disposeBag = DisposeBag()
 
-// MARK: - Part IV: Combine operator
+// MARK: - Combine
 // 1. StartWith
 // 2. Merge
 // 3. Zip
