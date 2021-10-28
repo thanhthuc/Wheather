@@ -9,12 +9,9 @@ import RxSwift
 import RxRelay
 
 protocol WeatherInfoViewModelProtocol {
-   
-   var disposedBag: DisposeBag { get }
    var imageDataObservable: Observable<UIImage> { get }
    var errorObservable: Observable<Error> { get }
    func loadImage(resourcePath: String)
-   
 }
 
 class WeatherInfoViewModel: WeatherInfoViewModelProtocol {

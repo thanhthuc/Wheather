@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		8BD0DDAA5A42E2CB8E73BA24 /* Pods_WeatherTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00BC616E612C4F59E5E52DDD /* Pods_WeatherTests.framework */; };
 		94594F54585D57AFFD10C800 /* Pods_Weather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7BBF052B122F0A596F3AA90 /* Pods_Weather.framework */; };
+		DB23085527290D170060CC31 /* UserValidationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB23085427290D170060CC31 /* UserValidationViewModel.swift */; };
+		DB23085727293C960060CC31 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB23085627293C960060CC31 /* StringExtensions.swift */; };
 		DB33D7E12713A953003E522F /* DateExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB33D7E02713A953003E522F /* DateExtensions.swift */; };
 		DB33D7EC2713AE57003E522F /* WeatherInfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB33D7EB2713AE57003E522F /* WeatherInfoViewModel.swift */; };
 		DB33D8152713EDEC003E522F /* FeelLikeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DB33D8142713EDEC003E522F /* FeelLikeModel.swift */; };
@@ -61,6 +63,8 @@
 		9CAC95B76ED9B1DC20EDC930 /* Pods-Weather.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Weather.debug.xcconfig"; path = "Target Support Files/Pods-Weather/Pods-Weather.debug.xcconfig"; sourceTree = "<group>"; };
 		9E18E21701D2666C8F263D54 /* Pods-WeatherTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WeatherTests.debug.xcconfig"; path = "Target Support Files/Pods-WeatherTests/Pods-WeatherTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B7BBF052B122F0A596F3AA90 /* Pods_Weather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Weather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB23085427290D170060CC31 /* UserValidationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserValidationViewModel.swift; sourceTree = "<group>"; };
+		DB23085627293C960060CC31 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		DB33D7E02713A953003E522F /* DateExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateExtensions.swift; sourceTree = "<group>"; };
 		DB33D7EB2713AE57003E522F /* WeatherInfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherInfoViewModel.swift; sourceTree = "<group>"; };
 		DB33D8142713EDEC003E522F /* FeelLikeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeelLikeModel.swift; sourceTree = "<group>"; };
@@ -158,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				DB33D7E02713A953003E522F /* DateExtensions.swift */,
+				DB23085627293C960060CC31 /* StringExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -254,6 +259,7 @@
 			children = (
 				DBAA78D22711A5E2004369BA /* WeatherDataViewModel.swift */,
 				DB33D7EB2713AE57003E522F /* WeatherInfoViewModel.swift */,
+				DB23085427290D170060CC31 /* UserValidationViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -559,9 +565,11 @@
 				DB33D81F2713EE2C003E522F /* TemperatureModel.swift in Sources */,
 				DBAA78EC27128C75004369BA /* CityModel.swift in Sources */,
 				DB3C267F2724D90D00F7591D /* WeatherLoginViewController.swift in Sources */,
+				DB23085527290D170060CC31 /* UserValidationViewModel.swift in Sources */,
 				DB33D8152713EDEC003E522F /* FeelLikeModel.swift in Sources */,
 				DB33D7E12713A953003E522F /* DateExtensions.swift in Sources */,
 				DB33D8242713EE83003E522F /* DayWeatherModel.swift in Sources */,
+				DB23085727293C960060CC31 /* StringExtensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -13,7 +13,6 @@ protocol WeatherDataViewModelProtocol {
    var errorMessageObservable: Observable<String> { get }
    var isLoadingDataObservable: Observable<Bool> { get }
    func loadWeatherCitys(withQuery query: String)
-   var disposeBag: DisposeBag { get }
 }
 
 class WeatherDataViewModel: WeatherDataViewModelProtocol {
@@ -58,6 +57,8 @@ class WeatherDataViewModel: WeatherDataViewModelProtocol {
       APIWeatherHandler
          .shared
          .request(service: .requestCity(param: ["q":query, "cnt":"7", "units":"metric"]))
+         .retry(3)
+         .debug("Request")
          .subscribe { [weak self] (model: WeatherModelData) in
             self?.daysWeatherBehaviorRelay.accept(model.listWeatherForDays)
             self?.isLoadingDataBehaviorRelay.accept(false)

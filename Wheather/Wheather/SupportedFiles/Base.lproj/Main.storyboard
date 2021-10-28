@@ -12,7 +12,7 @@
         <!--Weather Of Days-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="WeatherHomeViewController" customModule="Weather" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WeatherHomeViewController" id="BYZ-38-t0r" customClass="WeatherHomeViewController" customModule="Weather" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -62,30 +62,37 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="abu-Nu-qBb">
-                                <rect key="frame" x="20" y="249.5" width="335" height="34"/>
+                                <rect key="frame" x="20" y="243.5" width="335" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RbU-BW-0Wm">
-                                <rect key="frame" x="20" y="203" width="335" height="26.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <rect key="frame" x="20" y="203" width="335" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qwl-uJ-KLZ">
-                                <rect key="frame" x="20" y="288.5" width="335" height="26.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                <rect key="frame" x="20" y="282.5" width="335" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5hw-IN-AQa">
-                                <rect key="frame" x="157.5" y="363" width="60" height="42"/>
+                                <rect key="frame" x="137.5" y="351" width="100" height="42"/>
+                                <color key="backgroundColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="1Nd-LV-66g"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Login"/>
                                 <connections>
                                     <segue destination="BYZ-38-t0r" kind="show" id="R16-DT-9ID"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="oFc-nG-WDo">
+                                <rect key="frame" x="177.5" y="121" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="IAP-50-2k0"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -96,12 +103,14 @@
                             <constraint firstItem="qwl-uJ-KLZ" firstAttribute="top" secondItem="abu-Nu-qBb" secondAttribute="bottom" constant="5" id="HQm-n4-SSY"/>
                             <constraint firstItem="RbU-BW-0Wm" firstAttribute="top" secondItem="1GF-CX-Dti" secondAttribute="bottom" constant="8" symbolic="YES" id="LIT-rg-AZW"/>
                             <constraint firstItem="RbU-BW-0Wm" firstAttribute="trailing" secondItem="1GF-CX-Dti" secondAttribute="trailing" id="QwU-Zx-6P6"/>
+                            <constraint firstItem="oFc-nG-WDo" firstAttribute="centerX" secondItem="ab4-2h-XFr" secondAttribute="centerX" id="SP6-cs-1aW"/>
                             <constraint firstItem="abu-Nu-qBb" firstAttribute="leading" secondItem="1GF-CX-Dti" secondAttribute="leading" id="V2k-98-7az"/>
                             <constraint firstItem="5hw-IN-AQa" firstAttribute="top" secondItem="qwl-uJ-KLZ" secondAttribute="bottom" constant="48" id="Xhk-SP-XAZ"/>
                             <constraint firstItem="qwl-uJ-KLZ" firstAttribute="trailing" secondItem="abu-Nu-qBb" secondAttribute="trailing" id="YmS-MN-iMe"/>
                             <constraint firstItem="1GF-CX-Dti" firstAttribute="leading" secondItem="IAP-50-2k0" secondAttribute="leading" constant="20" id="lw2-VV-4Gp"/>
                             <constraint firstItem="1GF-CX-Dti" firstAttribute="top" secondItem="IAP-50-2k0" secondAttribute="top" constant="65" id="o3Y-IF-r2V"/>
                             <constraint firstItem="qwl-uJ-KLZ" firstAttribute="leading" secondItem="abu-Nu-qBb" secondAttribute="leading" id="ofJ-79-WJD"/>
+                            <constraint firstItem="1GF-CX-Dti" firstAttribute="top" secondItem="oFc-nG-WDo" secondAttribute="bottom" constant="20" id="w5R-Uv-wQA"/>
                             <constraint firstItem="abu-Nu-qBb" firstAttribute="trailing" secondItem="1GF-CX-Dti" secondAttribute="trailing" id="xex-u8-RYm"/>
                             <constraint firstItem="5hw-IN-AQa" firstAttribute="centerX" secondItem="qwl-uJ-KLZ" secondAttribute="centerX" id="y72-mX-14E"/>
                             <constraint firstItem="IAP-50-2k0" firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="5hw-IN-AQa" secondAttribute="bottom" constant="10" id="yma-HU-5Dh"/>
@@ -116,7 +125,13 @@
                         </button>
                     </navigationItem>
                     <connections>
+                        <outlet property="activityIndicator" destination="oFc-nG-WDo" id="2yU-FY-YdZ"/>
                         <outlet property="buttonTestDeboundThrotto" destination="N54-Jw-Av8" id="NhH-xb-Pws"/>
+                        <outlet property="loginButton" destination="5hw-IN-AQa" id="bS1-RQ-84f"/>
+                        <outlet property="passwordTextField" destination="abu-Nu-qBb" id="h0p-QX-Apu"/>
+                        <outlet property="userNameTextField" destination="1GF-CX-Dti" id="Wkc-e8-svL"/>
+                        <outlet property="validPasswordLabel" destination="qwl-uJ-KLZ" id="Omn-sS-RV3"/>
+                        <outlet property="validUserNameLabel" destination="RbU-BW-0Wm" id="0NH-0S-H2T"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W9I-CV-UpW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

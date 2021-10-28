@@ -12,7 +12,7 @@ var disposeBag: DisposeBag? = DisposeBag()
 // 2. PublishRelay
 // 3. BehaviorSubject
 // 4. ReplaySubject
-// 5. Variable (Deprecate) = BehaviorReplay
+// 5. Variable (Deprecate) = BehaviorRelay
 
 //let publishSubject = PublishSubject<String>()
 //publishSubject.onNext("Teo")

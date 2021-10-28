@@ -215,24 +215,44 @@ let disposeBag = DisposeBag()
 //}
 
 
-let searchStringSequence = Observable.of("A", "B", "C", "D", "E")
-searchStringSequence.flatMapLatest { string in
-   return Observable<String>.create { observer in
-      // perform long task, example: perform API request, call database
-      DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + 4) {
-         observer.onNext("string result \(string)")
-         observer.onCompleted()
-      }
-      return Disposables.create {}
-   }
-}
-.subscribe { value in
-   print(value)
-} onError: { error in
-   print(error)
-} onCompleted: {
-   print("Completed")
-} onDisposed: {
+//let searchStringSequence = Observable.of("A", "B", "C", "D", "E")
+//searchStringSequence.flatMapLatest { string in
+//   return Observable<String>.create { observer in
+//      // perform long task, example: perform API request, call database
+//      DispatchQueue.global().asyncAfter(deadline: DispatchTime.now() + 4) {
+//         observer.onNext("string result \(string)")
+//         observer.onCompleted()
+//      }
+//      return Disposables.create {}
+//   }
+//}
+//.subscribe { value in
+//   print(value)
+//} onError: { error in
+//   print(error)
+//} onCompleted: {
+//   print("Completed")
+//} onDisposed: {
+//   print("Disposed")
+//}
+
+let observable = Observable<Int>.of(1,2,3,4)
+
+/*
+ 1. Main thread
+ 2. Background thread
+ 3. Default thread
+ */
+
+observable
+   .observe(on: MainScheduler.instance)
+   .subscribe { value in
+   
+   print("thread name: \(Thread.current)")
+}  onDisposed: {
    print("Disposed")
 }
+   .disposed(by: disposeBag)
+
+
 
