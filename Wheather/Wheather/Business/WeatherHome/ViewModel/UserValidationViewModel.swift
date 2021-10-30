@@ -33,9 +33,6 @@ class UserValidationViewModel: UserValidationViewModelProtocol {
    private var usernameTextObservable: Observable<String>
    private var passwordTextObservable: Observable<String>
    
-   private var userNameBehavior = BehaviorRelay(value: "")
-   private var passwordBehavior = BehaviorRelay(value: "")
-   
    
    init(usernameTextObservable: Observable<String>,
         passwordTextObservable: Observable<String>) {
@@ -55,7 +52,6 @@ class UserValidationViewModel: UserValidationViewModelProtocol {
          .debounce(.milliseconds(500), scheduler: MainScheduler.instance)
          .distinctUntilChanged()
          .map {[weak self] text in
-            self?.userNameBehavior.accept(text)
             if text.isEmail() {
                return true
             } else {
@@ -71,7 +67,6 @@ class UserValidationViewModel: UserValidationViewModelProtocol {
          .debounce(.milliseconds(500), scheduler: MainScheduler.instance)
          .distinctUntilChanged()
          .map {[weak self] text in
-            self?.passwordBehavior.accept(text)
             if text.count > 3 {
                return true
             } else {
@@ -104,12 +99,5 @@ class UserValidationViewModel: UserValidationViewModelProtocol {
             }
          return Disposables.create()
       }
-   }
-   
-   func switchRootVC() {
-      guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-         return
-      }
-      
    }
 }
