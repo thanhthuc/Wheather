@@ -26,9 +26,6 @@
       location = "group:DemoRxSwift.playground">
    </FileRef>
    <FileRef
-      location = "group:CustomRxOperatorOrObservable.playground">
-   </FileRef>
-   <FileRef
       location = "group:/Users/nguyenthanhthuc/Wheather/Wheather/Weather.xcodeproj">
    </FileRef>
    <FileRef

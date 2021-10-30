@@ -220,12 +220,12 @@ struct Type {
 
 /*
  Let's have a hot Observable we will call Active Sequence, and a cold Passive Sequence.
-
+ 
  Active Sequence emits items all the time , regardless of whether someone subscribed to it or not
  Passive Sequence begins issuing items upon request
-
+ 
  An example of a Passive Sequence is a request to the network, which begins only when we subscribe to a sequence. Examples of Active Sequence are a web-socket connection, timer events, or text produced by UITextField'om.
-
+ 
  */
 
 // MARK: - publish() and his friend connect()
@@ -233,26 +233,37 @@ struct Type {
  Connectable Observable is similar to a regular Observable, except for one point. It begins to produce elements not when they subscribe to it, but only when the operator is called on itconnect() .
  */
 
-//let myObservable = Observable.just(1).publish()
+//let myObservable = Observable<Int>.interval(.seconds(1), scheduler: MainScheduler.instance)
+//.publish()
+//.refCount()
+//
+////myObservable.connect()
+//
 //print("Subscribing")
 //
-//myObservable.subscribe(onNext: {
+//let subcribe = myObservable.subscribe(onNext: {
 //    print("first = \($0)")
 //})
-//myObservable.subscribe(onNext: {
-//    print("second = \($0)")
-//})
+////
+////myObservable.subscribe(onNext: {
+////    print("second = \($0)")
+////})
 //
 //DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-//    print("Calling connect after 3 seconds")
-//    myObservable.connect()
+//   print("Calling connect after 3 seconds")
+//   subcribe.dispose()
+//   myObservable.subscribe(onNext: {
+//       print("first = \($0)")
+//   })
 //}
+
+
 /* Output:
-Subscribing
-Calling connect after 3 seconds
-first = 1
-second = 1
-*/
+ Subscribing
+ Calling connect after 3 seconds
+ first = 1
+ second = 1
+ */
 
 /*
  An interesting thing is how resources are cleaned up. Take a look at this code.
@@ -287,46 +298,71 @@ second = 1
 //}
 
 // MARK: - Time to share replay
-
 // https://en.wikipedia.org/wiki/Side_effect_(computer_science)
 
-//let myObservable = Observable<Double>.create { observer in
-////   print("Create Observable")
-//   let time = NSDate.now.timeIntervalSince1970
+let observable = Observable<Double>.create { observer in
+   
+//   print("Create Observable")
+   
+   let time = NSDate.now.timeIntervalSince1970
+   
 //   observer.onNext(time)
 //   observer.onNext(time)
 //   observer.onNext(time)
-//   observer.onNext(time)
-//   observer.onError(NSError(domain: "", code: 0, userInfo: nil))
-//   return Disposables.create {}
-//}
-//.share(replay: 2, scope: .whileConnected)
-//.debug("source")
-////.retry(3)
-//
-//let firstSubscribe = myObservable.subscribe { value in } onDisposed: {}
-//firstSubscribe.dispose()
-//let secondSubscribe = myObservable.subscribe { value in } onDisposed: {}
-//let thirdSubscribe = myObservable.subscribe { value in } onDisposed: {}
-//let fourthSubscribe = myObservable.subscribe { value in } onDisposed: {}
-//let fifthSubscribe = myObservable.subscribe { value in } onDisposed: {}
-//let sixSubscribe = myObservable.subscribe { value in } onDisposed: {}
-//let sevenSubscribe = myObservable.subscribe { value in } onDisposed: {}
+   observer.onNext(time)
+   return Disposables.create()
+}
+.debug("Source")
+.share(replay: 1, scope: .whileConnected)
 
-/*
- 2021-10-29 10:12:22.073: source -> subscribed
- 2021-10-29 10:12:22.077: source -> Event next(1635477142.075657)
- 2021-10-29 10:12:22.086: source -> isDisposed
- 2021-10-29 10:12:22.086: source -> subscribed
- 2021-10-29 10:12:22.087: source -> Event next(1635477142.075657)
- 2021-10-29 10:12:22.087: source -> Event next(1635477142.086582)
- 2021-10-29 10:12:22.087: source -> subscribed
- 2021-10-29 10:12:22.087: source -> Event next(1635477142.075657)
- 2021-10-29 10:12:22.087: source -> Event next(1635477142.086582)
- 2021-10-29 10:12:22.088: source -> subscribed
- 2021-10-29 10:12:22.088: source -> Event next(1635477142.075657)
- 2021-10-29 10:12:22.088: source -> Event next(1635477142.086582)
- 2021-10-29 10:12:22.088: source -> subscribed
- 2021-10-29 10:12:22.088: source -> Event next(1635477142.075657)
- 2021-10-29 10:12:22.088: source -> Event next(1635477142.086582)
- */
+observable.subscribe { value in
+   print("A -> \(value)")
+} onCompleted: {
+   print("Completed")
+}
+//.dispose()
+//
+//observable.subscribe { value in
+//   print("B -> \(value)")
+//} onCompleted: {
+//   print("Completed")
+//}
+//observable.subscribe { value in
+//   print("C -> \(value)")
+//} onCompleted: {
+//   print("Completed")
+//}
+//observable.subscribe { value in
+//   print("D -> \(value)")
+//} onCompleted: {
+//   print("Completed")
+//}
+//observable.subscribe { value in
+//   print("E -> \(value)")
+//} onCompleted: {
+//   print("Completed")
+//}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
