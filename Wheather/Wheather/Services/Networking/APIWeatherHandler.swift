@@ -46,7 +46,9 @@ class APIWeatherHandler: APINetworkHandlerProtocol {
             }
          }
          task.resume()
-         return Disposables.create()
+         return Disposables.create {
+            task.cancel()
+         }
       }
    }
    
