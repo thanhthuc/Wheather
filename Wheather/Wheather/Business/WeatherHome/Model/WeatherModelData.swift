@@ -29,6 +29,5 @@ class WeatherModelData: NSObject, Codable {
       code = try weatherDataContainer.decode(String?.self, forKey: .code)
       forestcastDay = try weatherDataContainer.decode(Int.self, forKey: .forestcastDay)
       listWeatherForDays = try weatherDataContainer.decode([DayDataModel].self, forKey: .listWeatherForDays)
-
    }
 }

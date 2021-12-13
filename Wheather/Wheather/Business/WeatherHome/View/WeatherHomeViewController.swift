@@ -9,7 +9,7 @@ import UIKit
 import RealmSwift
 import RxSwift
 import RxCocoa
-import RxCocoa
+import RxDataSources
 
 class WeatherHomeViewController: UIViewController {
    
@@ -26,6 +26,9 @@ class WeatherHomeViewController: UIViewController {
    
    // MARK: - ViewModel property
    var weatherDataViewModel: WeatherDataViewModel!
+   
+   var sectioViewModel: HandleSectionViewModelProtocol!
+   
    let disposedBag = DisposeBag()
    
    // MARK: - View controller lifecycle
@@ -35,12 +38,15 @@ class WeatherHomeViewController: UIViewController {
       setupView()
       setupSearchController()
       initViewModel()
+      
+      
+      sectioViewModel = HandleSectionViewModel()
+      sectioViewModel.createDatas()
       setupBinding()
-      testDisposed()
    }
    
    private func setupSearchController() {
-      searchController.searchResultsUpdater = self
+      // searchController.searchResultsUpdater = self
       searchController.obscuresBackgroundDuringPresentation = false
       searchController.searchBar.placeholder = "Search City"
       navigationItem.searchController = searchController
@@ -51,9 +57,7 @@ class WeatherHomeViewController: UIViewController {
       let nib = UINib(nibName: String(describing: WeatherInfoTableViewCell.self), bundle: nil)
       
       tableView.register(nib, forCellReuseIdentifier: String(describing: WeatherInfoTableViewCell.self))
-      
       activityIndicatorView.hidesWhenStopped = true
-      
       tableView.insertSubview(refreshControl, at: 0)
       
    }
@@ -70,111 +74,108 @@ class WeatherHomeViewController: UIViewController {
    }
    
    private func setupBinding() {
-      searchController
-         .searchBar
-         .rx
-         .text
-         .orEmpty
-         // should use throttle for smooth and continue tap=> more react
-         // should use debound for least request
-         .debounce(RxTimeInterval.milliseconds(600), scheduler: MainScheduler.instance)
-         .distinctUntilChanged()
-         .flatMapLatest({ query -> Observable<String> in
-            return Observable.just(query)
-         })
-         .subscribe {[weak self] query in
-            print("query flat operator: \(query)")
-            self?.weatherDataViewModel.loadWeatherCitys(withQuery: query)
-            
-         } onError: { error in
-            print(error.localizedDescription)
-         } onCompleted: {
-            //         print("Complete observe Search API")
-         } onDisposed: {
-            //         print("Disposed observe Search API")
-         }
-         .disposed(by: disposedBag)
+//      searchController
+//         .searchBar
+//         .rx
+//         .text
+//         .orEmpty
+//         // should use throttle for smooth and continue tap=> more react
+//         // should use debound for least request
+//         .debounce(RxTimeInterval.milliseconds(600), scheduler: MainScheduler.instance)
+//         .distinctUntilChanged()
+//         .flatMapLatest({ query -> Observable<String> in
+//            return Observable.just(query)
+//         })
+//         .subscribe {[weatherDataViewModel] query in
+//            print("query flat operator: \(query)")
+//            weatherDataViewModel!.loadWeatherCitys(withQuery: query, page: weatherDataViewModel!.currentPage)
+//
+//         } onError: { error in
+//            print(error.localizedDescription)
+//         } onCompleted: {
+//            //         print("Complete observe Search API")
+//         } onDisposed: {
+//            //         print("Disposed observe Search API")
+//         }
+//         .disposed(by: disposedBag)
+//
+//      weatherDataViewModel
+//         .daysWeatherObservable
+//         .observe(on: MainScheduler.instance)
+//         .bind(to: tableView
+//                  .rx
+//                  .items(cellIdentifier: String(describing: WeatherInfoTableViewCell.self), cellType: WeatherInfoTableViewCell.self)) {
+//            tableView, model, cell in
+//            print(Thread.current)
+//            cell.setupDataWeather(data: model)
+//         }
+//         .disposed(by: disposedBag)
+//
+//      weatherDataViewModel
+//         .isLoadingDataObservable
+//         .observe(on: MainScheduler.instance)
+//         .bind(to: activityIndicatorView.rx.isAnimating)
+//         .disposed(by: disposedBag)
+//
+//      weatherDataViewModel
+//         .isLoadingDataObservable
+//         .observe(on: MainScheduler.instance)
+//         .subscribe(onNext: {[refreshControl] isLoading in
+//            if !isLoading {
+//               refreshControl.endRefreshing()
+//            }
+//         }, onError: { error in
+//
+//         }, onCompleted: {
+//
+//         }, onDisposed: {
+//
+//         })
+//         .disposed(by: disposedBag)
+//
+//      refreshControl
+//         .rx
+//         .controlEvent(.valueChanged)
+//         .subscribe {[weak self] _ in
+//            print("query flat operator: \(self?.searchController.searchBar.text ?? "")")
+//            self?.weatherDataViewModel.loadWeatherCitys(withQuery: self?.searchController.searchBar.text ?? "", page: 0)
+//         } onError: { error in
+//            print(error)
+//         }
+//         .disposed(by: disposedBag)
+//
+//      tableView
+//         .rx
+//         .willDisplayCell
+//         .subscribe {[weak self] willDisplayCellEvent in
+////            self?.weatherDataViewModel.currentPage = (self?.weatherDataViewModel.currentPage)! + 1
+////            self?.weatherDataViewModel.loadWeatherCitys(withQuery: self?.searchController.searchBar.text ?? "", page: self?.weatherDataViewModel.currentPage ?? 0)
+//
+//      } onError: { error in
+//         print(error.localizedDescription)
+//      }
+//      .disposed(by: disposedBag)
       
-      weatherDataViewModel
-         .daysWeatherObservable
-         .observe(on: MainScheduler.instance)
+      let dataSource = RxTableViewSectionedReloadDataSource<CustomSectionModel>(configureCell: { (dataSource: TableViewSectionedDataSource<CustomSectionModel>, tableView: UITableView, indexPath: IndexPath, item: CustomSectionModel.Item) -> UITableViewCell in
+         
+         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: WeatherInfoTableViewCell.self), for: indexPath)
+             return cell
+      },
+      titleForHeaderInSection: { dataSource, index in
+         return dataSource.sectionModels[index].header
+      },
+      titleForFooterInSection: { dataSource, index in
+         return dataSource.sectionModels[index].header
+      })
+      
+      sectioViewModel
+         .dataSectionObservable
+         .asObservable()
          .bind(to: tableView
                   .rx
-                  .items(cellIdentifier: String(describing: WeatherInfoTableViewCell.self), cellType: WeatherInfoTableViewCell.self)) {
-            tableView, model, cell in
-            print(Thread.current)
-            cell.setupDataWeather(data: model)
-         }
-         .disposed(by: disposedBag)
-      
-      //      weatherDataViewModel
-      //         .loadWeatherCitys()
-      //         .subscribe { models in
-      //         print(models)
-      //      } onError: { error in
-      //         print(error.localizedDescription)
-      //      } onCompleted: {
-      //         print("Complete observable datas model")
-      //      } onDisposed: {
-      //         print("Disposed observable datas model")
-      //      }
-      //      .disposed(by: disposedBag)
-      
-      weatherDataViewModel
-         .isLoadingDataObservable
-         .observe(on: MainScheduler.instance)
-         .bind(to: activityIndicatorView.rx.isAnimating)
-         .disposed(by: disposedBag)
-      
-      weatherDataViewModel
-         .isLoadingDataObservable
-         .observe(on: MainScheduler.instance)
-         .subscribe(onNext: {[refreshControl] isLoading in
-            if !isLoading {
-               refreshControl.endRefreshing()
-            }
-         }, onError: { error in
-            
-         }, onCompleted: {
-            
-         }, onDisposed: {
-            
-         })
-         .disposed(by: disposedBag)
-      
-      refreshControl
-         .rx
-         .controlEvent(.valueChanged)
-         .subscribe {[weak self] _ in
-            print("query flat operator: \(self?.searchController.searchBar.text ?? "")")
-            self?.weatherDataViewModel.loadWeatherCitys(withQuery: self?.searchController.searchBar.text ?? "")
-         } onError: { error in
-            print(error)
-         }
+                  .items(dataSource: dataSource))
          .disposed(by: disposedBag)
    }
    
-   func testDisposed() {
-      //      Observable<Int>
-      //         .interval(RxTimeInterval.milliseconds(500), scheduler: MainScheduler.instance)
-      //         .subscribe { value in
-      //         print(value)
-      //      } onError: { error in
-      //         print(error.localizedDescription)
-      //      } onCompleted: {
-      //         print("Completed")
-      //      } onDisposed: {
-      //         print("Disposed interval observable")
-      //      }
-      //      .disposed(by: disposedBag)
-   }
-}
-
-extension WeatherHomeViewController: UISearchResultsUpdating {
-   
-   func updateSearchResults(for searchController: UISearchController) {
-      
-   }
    
 }
-

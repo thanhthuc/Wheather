@@ -91,10 +91,6 @@ class WeatherLoginViewController: UIViewController {
          .tap
          .subscribe { _ in
          
-//            let sb = UIStoryboard(name: "Main", bundle: nil)
-//            let vc = sb.instantiateViewController(withIdentifier: String(describing: WeatherHomeViewController.self))
-//            self.navigationController?.pushViewController(vc, animated: true)
-            
       } onDisposed: {
          print("Disposed")
       }

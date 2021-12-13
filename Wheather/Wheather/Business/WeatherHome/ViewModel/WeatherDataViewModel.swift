@@ -12,12 +12,11 @@ protocol WeatherDataViewModelProtocol {
    var daysWeatherObservable: Observable<[DayDataModel]> { get }
    var errorMessageObservable: Observable<String> { get }
    var isLoadingDataObservable: Observable<Bool> { get }
-   func loadWeatherCitys(withQuery query: String)
+   func loadWeatherCitys(withQuery query: String, page: Int)
+   var currentPage: Int { get set }
 }
 
 class WeatherDataViewModel: WeatherDataViewModelProtocol {
-   
-   
    var daysWeatherObservable: Observable<[DayDataModel]>
    var errorMessageObservable: Observable<String>
    var isLoadingDataObservable: Observable<Bool>
@@ -26,6 +25,9 @@ class WeatherDataViewModel: WeatherDataViewModelProtocol {
    private var isLoadingDataBehaviorRelay: BehaviorRelay<Bool> = BehaviorRelay(value: false)
    private var daysWeatherBehaviorRelay: BehaviorRelay<[DayDataModel]> = BehaviorRelay(value: [])
    private var searchObservable: Observable<String> = Observable.just("")
+   
+   var currentPage: Int
+   
    let disposeBag = DisposeBag()
    
    // Network connection replay
@@ -47,17 +49,30 @@ class WeatherDataViewModel: WeatherDataViewModelProtocol {
       daysWeatherObservable = daysWeatherBehaviorRelay.asObservable()
       
       // default search: saigon
-      loadWeatherCitys(withQuery: "saigon")
+      currentPage = 1
+      loadWeatherCitys(withQuery: "saigon", page: currentPage)
    }
    
-   func loadWeatherCitys(withQuery query: String) {
-      
+   func loadWeatherCitys(withQuery query: String, page: Int) {
       isLoadingDataBehaviorRelay.accept(true)
+      let pageItems = 6
+      // default load
+      var cnt: Int = 0
+      if page == 0 {
+         currentPage = 1
+         cnt = pageItems
+      } else {
+         currentPage = currentPage + 1
+      }
+      cnt = (currentPage * pageItems)
       
+      if cnt > 17 {
+         cnt = 17
+      }
       APIWeatherHandler
          .shared
-         .request(service: .requestCity(param: ["q":query, "cnt":"7", "units":"metric"]))
-         .retry(3)
+         .request(service: .requestCity(param: ["q":query, "cnt":"\(cnt)", "units":"metric"]))
+         .retry(1)
          .debug("Request")
          .subscribe { [weak self] (model: WeatherModelData) in
             self?.daysWeatherBehaviorRelay.accept(model.listWeatherForDays)
